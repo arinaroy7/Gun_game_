@@ -440,7 +440,7 @@ MonoBehaviour:
   _prefab: {fileID: 6288345562648404272, guid: 66da66d73c5dde64b93695bad7f288e4, type: 3}
   _minTargetOfSpawn: 5
   _maxTargetOfSpawn: 5
-  _minDistance: 0.2
+  _minDistance: 0.5
   _spawnAreaMin: {fileID: 9035948804530422411, guid: 2850e652527952f46beb92861a41599b,
     type: 3}
   _spawnAreaMax: {fileID: 3195574182744761794, guid: f4cdf1669a1ff6a44b64ce827cd89ad1,
