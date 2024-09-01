@@ -7,8 +7,7 @@ public class TargetsManager : MonoBehaviour // логика спавна миш�
     [SerializeField] private int _minTargetOfSpawn;
     [SerializeField] private int _maxTargetOfSpawn;
     [SerializeField] private float _minDistance; 
-    [SerializeField] private Transform _spawnAreaMin;
-    [SerializeField] private Transform _spawnAreaMax;
+    [SerializeField] private float _spawnAreaSize; 
     private List<TargetController> _spawnTargets = new();
     private void Start() {
         int targetOfSpawn = Random.Range(_minTargetOfSpawn, _maxTargetOfSpawn+1);
@@ -35,13 +34,18 @@ public class TargetsManager : MonoBehaviour // логика спавна миш�
     }
     public Vector3 GetRandomPosition() {
         Vector3 spawnPosition = new(
-            Random.Range(_spawnAreaMin.position.x, _spawnAreaMax.position.x),
-            Random.Range(_spawnAreaMin.position.y, _spawnAreaMax.position.y),
-            Random.Range(_spawnAreaMin.position.z, _spawnAreaMax.position.z)
+            Random.Range(-_spawnAreaSize, _spawnAreaSize),
+            2f, 
+            Random.Range(-_spawnAreaSize, _spawnAreaSize)
         );
         return spawnPosition;
     }
     private bool IsPositionValid(Vector3 newPosition) {
-        return _spawnTargets.TrueForAll(existingTarget => existingTarget != null && Vector3.Distance(newPosition, existingTarget.transform.position) >= _minDistance);
+        foreach (TargetController existingTarget in _spawnTargets) {
+            if (existingTarget != null && Vector3.Distance(newPosition, existingTarget.transform.position) < _minDistance) {
+                return false;
+            }
+        }
+        return true;
     }
 }
